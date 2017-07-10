@@ -11,7 +11,8 @@ open class SwiftyGifManager {
     // A convenient default manager if we only have one gif to display here and there
     public static var defaultManager = SwiftyGifManager(memoryLimit: 50)
     
-    fileprivate var timer: CADisplayLink?
+   // fileprivate var timer: CADisplayLink?
+    fileprivate var timer: Timer?
     fileprivate var displayViews: [UIImageView] = []
     fileprivate var totalGifSize: Int
     fileprivate var memoryLimit: Int
@@ -25,8 +26,7 @@ open class SwiftyGifManager {
         self.memoryLimit = memoryLimit
         totalGifSize = 0
         haveCache = true
-        timer = CADisplayLink(target: self, selector: #selector(updateImageView))
-        timer!.add(to: .main, forMode: RunLoopMode.commonModes)
+        timer = Timer.scheduledTimer(timeInterval: 0.06, target: self, selector: #selector(updateImageView), userInfo: nil, repeats: true)
     }
     
     /**
